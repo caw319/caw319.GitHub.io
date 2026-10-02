@@ -1,16 +1,798 @@
-# Claire Weisgarber — Portfolio
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-A responsive personal portfolio site designed for GitHub Pages.
+    <title>Claire Weisgarber | Portfolio</title>
 
-## Files
-- `index.html` — portfolio page
-- `style.css` — responsive styling
-- `assets/claire-headshot.jpg` — supplied headshot
-- `assets/Claire-Weisgarber-Resume-2026.pdf` — supplied resume
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-## Publish with GitHub Pages
-1. Create a new GitHub repository (for example, `claire-weisgarber.github.io`).
-2. Upload everything in this folder, keeping the `assets` folder intact.
-3. In GitHub, open **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**, then select your main branch and `/ (root)`.
-5. Save. GitHub will provide the live site URL.
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #24352f;
+            background: #f7f5ef;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #ffffff;
+            border-bottom: 1px solid #ddd8ce;
+            padding: 15px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #234d3c;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #24352f;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #4c8066;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 8%;
+            background: linear-gradient(135deg, #eef3ed, #f7f5ef);
+        }
+
+        .hero-container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: 1;
+            color: #234d3c;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 25px;
+            color: #52655d;
+        }
+
+        .hero-text p {
+            max-width: 650px;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 22px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .button-primary {
+            background: #234d3c;
+            color: white;
+        }
+
+        .button-primary:hover {
+            background: #386b54;
+            transform: translateY(-2px);
+        }
+
+        .button-secondary {
+            border: 2px solid #234d3c;
+            color: #234d3c;
+        }
+
+        .button-secondary:hover {
+            background: #234d3c;
+            color: white;
+        }
+
+        .headshot {
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 8px solid white;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* General sections */
+        section {
+            padding: 90px 8%;
+        }
+
+        .section-container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #234d3c;
+            margin-bottom: 40px;
+        }
+
+        .section-subtitle {
+            color: #66756e;
+            margin-top: -25px;
+            margin-bottom: 35px;
+        }
+
+        /* About */
+        .about {
+            background: white;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .about-card {
+            padding: 30px;
+            background: #f7f5ef;
+            border-radius: 15px;
+        }
+
+        .about-card h3 {
+            color: #234d3c;
+            margin-bottom: 12px;
+        }
+
+        /* Education */
+        .education {
+            background: #eef3ed;
+        }
+
+        .education-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .education-card h3 {
+            font-size: 1.5rem;
+            color: #234d3c;
+        }
+
+        .education-card .school {
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .education-card ul {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        /* Experience */
+        .experience {
+            background: white;
+        }
+
+        .timeline {
+            border-left: 3px solid #b8cbbb;
+            padding-left: 35px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 45px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: #234d3c;
+            border-radius: 50%;
+            left: -44px;
+            top: 7px;
+        }
+
+        .timeline-item h3 {
+            color: #234d3c;
+            font-size: 1.4rem;
+        }
+
+        .timeline-date {
+            color: #718078;
+            font-weight: bold;
+            margin: 4px 0 12px;
+        }
+
+        .timeline-item ul {
+            padding-left: 20px;
+        }
+
+        /* Skills */
+        .skills {
+            background: #eef3ed;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .skill-card h3 {
+            color: #234d3c;
+            margin-bottom: 10px;
+        }
+
+        /* Involvement */
+        .involvement {
+            background: white;
+        }
+
+        .involvement-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tag {
+            background: #e4ece5;
+            color: #234d3c;
+            padding: 12px 18px;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        /* Contact */
+        .contact {
+            text-align: center;
+            background: #234d3c;
+            color: white;
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact p {
+            margin-bottom: 25px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-links a {
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 12px 20px;
+            border-radius: 25px;
+        }
+
+        .contact-links a:hover {
+            background: white;
+            color: #234d3c;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #18382c;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 800px) {
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav ul {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text {
+                order: 2;
+            }
+
+            .headshot {
+                margin: auto;
+                max-width: 260px;
+            }
+
+            .buttons {
+                justify-content: center;
+            }
+
+            .about-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 65px 6%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Claire Weisgarber</div>
+
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-container">
+
+            <div class="hero-text">
+                <h1>Claire<br>Weisgarber</h1>
+
+                <h2>Accounting & Accounting Information Systems Student</h2>
+
+                <p>
+                    Rutgers Business School student with experience in
+                    accounting support, swim instruction, coaching, and
+                    team leadership.
+                </p>
+
+                <div class="buttons">
+                    <a class="button button-primary"
+                       href="Claire-Weisgarber-Resume-2026.pdf"
+                       target="_blank">
+                        View Resume
+                    </a>
+
+                    <a class="button button-secondary"
+                       href="#contact">
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <img
+                    src="claire-headshot.jpg"
+                    alt="Claire Weisgarber professional headshot"
+                    class="headshot"
+                >
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- About -->
+    <section id="about" class="about">
+        <div class="section-container">
+
+            <h2 class="section-title">About Me</h2>
+
+            <div class="about-grid">
+
+                <div class="about-card">
+                    <h3>Who I Am</h3>
+
+                    <p>
+                        I am a Rutgers Business School student pursuing a
+                        Bachelor of Science in Accounting and Accounting
+                        Information Systems. I enjoy developing my
+                        professional skills through academics, work,
+                        leadership, and involvement on campus.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <h3>What I Bring</h3>
+
+                    <p>
+                        My experience includes organizing financial and
+                        administrative records, working with children and
+                        families as a swim instructor, coaching athletes,
+                        and leading teammates as a varsity captain.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Education -->
+    <section id="education" class="education">
+        <div class="section-container">
+
+            <h2 class="section-title">Education</h2>
+
+            <div class="education-card">
+
+                <h3>Rutgers Business School</h3>
+
+                <p class="school">
+                    Rutgers, The State University of New Jersey —
+                    New Brunswick, NJ
+                </p>
+
+                <p>
+                    <strong>Bachelor of Science</strong><br>
+                    Accounting and Accounting Information Systems
+                </p>
+
+                <p>
+                    Expected May 2029
+                </p>
+
+                <p>
+                    GPA: 3.37
+                </p>
+
+                <h4 style="margin-top:20px;">
+                    Relevant Coursework
+                </h4>
+
+                <ul>
+                    <li>Intermediate Accounting I</li>
+                    <li>Microeconomics</li>
+                    <li>Macroeconomics</li>
+                    <li>Statistics</li>
+                    <li>Financial Management</li>
+                </ul>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Experience -->
+    <section id="experience" class="experience">
+        <div class="section-container">
+
+            <h2 class="section-title">Professional Experience</h2>
+
+            <div class="timeline">
+
+                <!-- MECS -->
+                <div class="timeline-item">
+
+                    <h3>Clerical Assistant</h3>
+
+                    <div class="timeline-date">
+                        M.E.C.S. — Management Environmental Consulting Services
+                        | Sep 2021 – Present
+                    </div>
+
+                    <ul>
+                        <li>
+                            Manage company paperwork by organizing invoices,
+                            timesheets for 15+ employees, and company receipts.
+                        </li>
+
+                        <li>
+                            Maintain accounts receivable files for 10+
+                            companies.
+                        </li>
+
+                        <li>
+                            File specific jobs by date and company according
+                            to company standards.
+                        </li>
+                    </ul>
+
+                </div>
+
+
+                <!-- Private Swim Instructor -->
+                <div class="timeline-item">
+
+                    <h3>Private Swim Instructor</h3>
+
+                    <div class="timeline-date">
+                        Chesterfield, NJ | Jun 2026 – Present
+                    </div>
+
+                    <ul>
+                        <li>
+                            Teach children ages two and up the foundations
+                            of swimming.
+                        </li>
+
+                        <li>
+                            Organize drills and activities to track student
+                            progress and daily goals.
+                        </li>
+                    </ul>
+
+                </div>
+
+
+                <!-- Rutgers Swim -->
+                <div class="timeline-item">
+
+                    <h3>WSI Certified Swim Instructor</h3>
+
+                    <div class="timeline-date">
+                        Rutgers Recreation Swim Program | New Brunswick, NJ
+                    </div>
+
+                    <ul>
+                        <li>
+                            Manage a group of young swimmers and communicate
+                            with parents and management about swimmer
+                            improvement.
+                        </li>
+
+                        <li>
+                            Plan sessions to help students achieve mastery
+                            of introductory and intermediary skills.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- Jersey Storm -->
+                <div class="timeline-item">
+
+                    <h3>Junior Age Group Coach</h3>
+
+                    <div class="timeline-date">
+                        Jersey Storm Swimming — Cherry Hill, NJ
+                        | Nov 2023 – Jul 2025
+                    </div>
+
+                    <ul>
+                        <li>
+                            Created workouts including weight training,
+                            calisthenics, and in-water training tailored
+                            to swimmers ages 4–15.
+                        </li>
+
+                        <li>
+                            Communicated with parents about the growth and
+                            development of 30+ athletes.
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Leadership -->
+    <section id="leadership" class="education">
+
+        <div class="section-container">
+
+            <h2 class="section-title">Leadership</h2>
+
+            <div class="education-card">
+
+                <h3>Varsity Team Captain</h3>
+
+                <p class="school">
+                    Northern Burlington Swim Team
+                    | Nov 2024 – Mar 2025
+                </p>
+
+                <ul>
+                    <li>
+                        Worked with a co-captain to streamline group
+                        meetings and announcements for three practices
+                        per week.
+                    </li>
+
+                    <li>
+                        Mentored 10 incoming freshman athletes on strokes
+                        and the logistics of competitions and practices.
+                    </li>
+
+                    <li>
+                        Helped teammates understand transportation,
+                        lineups, and warm-up/cool-down procedures.
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Campus Involvement -->
+    <section class="involvement">
+
+        <div class="section-container">
+
+            <h2 class="section-title">Campus Involvement</h2>
+
+            <div class="involvement-list">
+
+                <div class="tag">
+                    Women in Business (RUWIB)
+                </div>
+
+                <div class="tag">
+                    Rutgers Club Swim
+                </div>
+
+                <div class="tag">
+                    Rutgers University Accounting Association
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Skills -->
+    <section id="skills" class="skills">
+
+        <div class="section-container">
+
+            <h2 class="section-title">Skills</h2>
+
+            <div class="skills-grid">
+
+                <div class="skill-card">
+
+                    <h3>Technical Skills</h3>
+
+                    <p>
+                        Microsoft Word, PowerPoint, Excel, Copilot,
+                        Google, and Gemini
+                    </p>
+
+                </div>
+
+                <div class="skill-card">
+
+                    <h3>Language</h3>
+
+                    <p>
+                        Intermediate Spanish
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+
+        <div class="section-container">
+
+            <h2 class="section-title">Let's Connect</h2>
+
+            <p>
+                Interested in connecting? Feel free to reach out.
+            </p>
+
+            <div class="contact-links">
+
+                <a href="mailto:caw319@scarletmail.rutgers.edu">
+                    Email Me
+                </a>
+
+                <a
+                    href="https://www.linkedin.com/in/claire-weisgarber-551841393"
+                    target="_blank">
+                    LinkedIn
+                </a>
+
+                <a
+                    href="Claire-Weisgarber-Resume-2026.pdf"
+                    target="_blank">
+                    Resume
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 Claire Weisgarber. All rights reserved.
+        </p>
+
+    </footer>
+
+</body>
+</html>
+```
